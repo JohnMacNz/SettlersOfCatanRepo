@@ -8,15 +8,18 @@ namespace SettlersOfCatanGame
 {
     public abstract class Tile
     {
+        public Tile()
+        {
+
+        }
+
         public abstract string Name
         {
             get;
-            set;
         }
         public abstract string Type
         {
             get;
-            set;
         }
     }
 }

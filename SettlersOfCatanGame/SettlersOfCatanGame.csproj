@@ -46,7 +46,6 @@
     <Compile Include="Board.cs" />
     <Compile Include="Building.cs" />
     <Compile Include="Card.cs" />
-    <Compile Include="City.cs" />
     <Compile Include="Dice.cs" />
     <Compile Include="Game.cs" />
     <Compile Include="IGame.cs" />
@@ -54,9 +53,7 @@
     <Compile Include="Player.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Road.cs" />
     <Compile Include="Robber.cs" />
-    <Compile Include="Settlement.cs" />
     <Compile Include="SettlersOfCatan.cs" />
     <Compile Include="Land.cs" />
     <Compile Include="Tile.cs" />

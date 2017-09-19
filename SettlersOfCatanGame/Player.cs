@@ -12,30 +12,20 @@ namespace SettlersOfCatanGame
     class Player
     {
         string playerName;
-        bool isActive = false;
+        int victoryPoints;
 
+        ArrayList resources;
         ArrayList cards;
         ArrayList buildings;
 
         Dice dice1 = new Dice();
         Dice dice2 = new Dice();
 
+        public string Name { get; set; }
+
         public Player(string name)
         {
-            playerName = name;
-        }
-
-        // property to check if its a player's turn
-        public bool IsActive
-        {
-            get
-            {
-                return isActive;
-            }
-            set
-            {
-                isActive = value;
-            }
+            Name = name;
         }
 
         public ArrayList Cards

@@ -11,8 +11,11 @@ namespace SettlersOfCatanGame
 {
     public class SettlersOfCatan : Game
     {
+        string playerName;
+        int turn;
         public override void initialiseGame()
         {
+            turn = 1;
             displayIntro();
             displayStartMenu();
         }
@@ -23,7 +26,7 @@ namespace SettlersOfCatanGame
             Console.WriteLine("\t\t\t\t\t\tCreated by John R. McLaren\n");
             Console.WriteLine("\t\t\t\t=======================================================\n\n\n\n");
             Console.WriteLine("\t\t\t\t\t\tPress any key to continue...");
-            Console.ReadLine();
+            Console.ReadKey();
             Console.Clear();
         }
         // After intro game prompts user to either start load or quit game
@@ -47,7 +50,7 @@ namespace SettlersOfCatanGame
                 switch (response)
                 {
                     case 1:
-                        startGame();
+                        createNewGame();
                         break;
                     case 2:
                         loadGame();
@@ -61,38 +64,93 @@ namespace SettlersOfCatanGame
                         break;
                 }
             }
+            catch(FormatException)
+            {
+                Console.WriteLine("Must be a number between 1-3.");
+            }
             catch(ApplicationException e)
             {
                 Console.WriteLine(e);
             }
-
         }
+
         // Create a new Settlers Game with board, players
+        void createNewGame()
+        {
+            Console.Clear();
+            Console.WriteLine("\t\t\t\t==================================================");
+            Console.WriteLine("\t\t\t\t\t\tCreate New Game");
+            setUpPlayers();
+            setUpBoard();
+            Console.Read();
+            //startGame();
+        }
+
         void startGame()
         {
-            setupGame();
+            Console.Clear();
+            Console.WriteLine("\t\t\t\tSettlers of Catan is a game about resource management.");
+            Console.WriteLine("\t\t\t\tThe goal is to be the first player to reach 10 victory points.");
+            Console.WriteLine("\t\t\t\tGood luck!\n\n\n");
+            Console.WriteLine("\t\t\t\t\t\tPress any key to continue...");
+            Console.ReadKey();
+
+            // each player rolls dice, whoever gets highest starts
+
+            for (int i = 0; i < Board.accessBoard().getPlayerCount(); i++)
+            {
+                Console.Clear();
+                
+            }
         }
 
-        void setupGame()
+        void displayTurn()
         {
-            // Create the board
-            // Create the players
-            setupPlayers();
+            Console.WriteLine("Turn {0}", turn);
         }
-        void setupPlayers()
+
+        void beginPlayerTurn(int playerIndex)
+        {
+            Board.accessBoard().CurrentPlayer = playerIndex;
+
+            Player player = Board.accessBoard().getPlayer(playerIndex);
+
+
+
+        }
+
+        void beginPhaseOne()
+        {
+
+        }
+        void beginPhaseTwo()
+        {
+
+        }
+        void beginPhaseThree()
+        {
+
+        }
+
+        void setUpBoard()
+        {
+            Board.accessBoard().setupTileArray();
+        }
+
+        void setUpPlayers()
         {
             //Add players to the board
-            Console.WriteLine("-----------------------------");
-            Console.WriteLine("How many players are playing?");
-            Console.Write("(3-4):");
+            Console.WriteLine("\t\t\t\t---------------------------------------------------");
+            Console.WriteLine("\t\t\t\tHow many players are playing?");
+            Console.Write("\t\t\t\t(3-4):");
             int playerCount = inputInteger();
 
             //if it is out of range then display msg and redo this method
             if ((playerCount < 3) || (playerCount > 4))
             {
-                Console.WriteLine("----------------------------------------------------------------");
-                Console.WriteLine(">>>>>>>>>>That is an invalid amount. Please try again.<<<<<<<<<<");
-                setupPlayers();
+                Console.WriteLine("\t\t\t\t----------------------------------------------------------------");
+                Console.WriteLine("\t\t\t\tThat is an invalid amount. Please try again.");
+                setUpPlayers();
             }
 
             //Ask for players names
@@ -101,30 +159,15 @@ namespace SettlersOfCatanGame
                 Console.WriteLine("------------------------------------");
                 Console.WriteLine("Please enter the name for Player {0}:", i + 1);
                 Console.Write("==>");
-                string playerName = Console.ReadLine();
+                playerName = Console.ReadLine();
                 Player player = new Player(playerName);
-                //subscribe to events
-                player.playerBankrupt += playerBankruptHandler;
-                player.playerPassGo += playerPassGoHandler;
-                player.playerLandOnChance += playerLandOnChanceHandler;
-                player.playerGoJail += playerGoJailHandler;
 
                 //add player 
-                Board.access().addPlayer(player);
-                Console.WriteLine("{0} has been added to the game.", Board.access().getPlayer(i).getName());
+                if (Board.accessBoard().addPlayer(player) == true)
+                    Console.WriteLine("{0} has been added to the game.", Board.accessBoard().getPlayer(i).Name);
+                else
+                    i--;
             }
-        }
-
-        void setupBoard()
-        {
-            // The board consists of 19 Land
-            // 9 Ocean 9 Harbor Surrounds it
-            // 2D Array/Generic to hold the tiles
-        }
-
-        void displayBoard()
-        {
-
         }
 
         public int inputInteger() // 0 is invalid input
@@ -150,7 +193,7 @@ namespace SettlersOfCatanGame
         {
             Console.Clear();
             Console.WriteLine("\t\t\t\t=========================================");
-            Console.WriteLine("\t\t\t\t\t\tThanks for Playing!");
+            Console.WriteLine("\t\t\t\t\t   Thanks for Playing!");
             Console.WriteLine("\t\t\t\t=========================================");
             Console.ReadLine();
             Environment.Exit(0);

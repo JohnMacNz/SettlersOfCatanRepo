@@ -10,15 +10,27 @@ namespace SettlersOfCatanGame
 {
     class Ocean : Tile
     {
+        string _name;
+        string _type;
+
+        public Ocean(string name, string type)
+        {
+            _name = name;
+            _type = type;
+        }
         public override string Name
         {
-            get;
-            set;
+            get
+            {
+                return _name;
+            }
         }
         public override string Type
         {
-            get;
-            set;
+            get
+            {
+                return _type;
+            }
         }
     }
 }

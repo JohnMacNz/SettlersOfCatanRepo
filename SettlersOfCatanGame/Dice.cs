@@ -14,20 +14,15 @@ namespace SettlersOfCatanGame
         private static Random randomNumber = new Random();
         private int numberRolled;
 
+        public int Number { get; set; }
+
+
         public int roll()
         {
             numberRolled = randomNumber.Next(1, 7); // from 1 to 6
+            Number = numberRolled;
             return numberRolled;
-        }
-
-        public int numberLastRolled()
-        {
-            return numberRolled;
-        }
-
-        public override string ToString()
-        {
-            return numberRolled.ToString();
+            
         }
     }
 }
