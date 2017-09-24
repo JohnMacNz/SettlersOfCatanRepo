@@ -35,14 +35,19 @@ namespace SettlersOfCatanGame
         }
 
         //method to access singleton
-        public static Board accessBoard()
+        public static Board Access()
         {
             if (board == null)
                 board = new Board();
             return board;
         }
 
-        public int getPlayerCount()
+        public ArrayList GetPlayers()
+        {
+            return players;
+        }
+
+        public int GetPlayerCount()
         {
             return players.Count;
         }
@@ -136,7 +141,7 @@ namespace SettlersOfCatanGame
             return true;
         }
 
-        public Player getPlayer(int playerIndex)
+        public Player GetPlayer(int playerIndex)
         {
             return (Player)players[playerIndex];
         }

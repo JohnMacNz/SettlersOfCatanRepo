@@ -13,14 +13,17 @@ namespace SettlersOfCatanGame
     {
         string playerName;
         int turn;
+
+        int numOfPlayers = Board.Access().GetPlayerCount();
+
         public override void initialiseGame()
         {
             turn = 1;
-            displayIntro();
-            displayStartMenu();
+            DisplayIntro();
+            DisplayStartMenu();
         }
         // some flavor for when the user first starts application
-        void displayIntro()
+        void DisplayIntro()
         {
             Console.WriteLine("\t\t\t\t===================Settlers of Catan===================\n");
             Console.WriteLine("\t\t\t\t\t\tCreated by John R. McLaren\n");
@@ -30,7 +33,7 @@ namespace SettlersOfCatanGame
             Console.Clear();
         }
         // After intro game prompts user to either start load or quit game
-        void displayStartMenu()
+        void DisplayStartMenu()
         {
             int response = 0;
 
@@ -50,17 +53,17 @@ namespace SettlersOfCatanGame
                 switch (response)
                 {
                     case 1:
-                        createNewGame();
+                        CreateNewGame();
                         break;
                     case 2:
-                        loadGame();
+                        LoadGame();
                         break;
                     case 3:
-                        quitGame();
+                        QuitGame();
                         break;
                     default:
                         Console.WriteLine("Invalid Input. Input a number between 1 and 3.\n");
-                        displayStartMenu();
+                        DisplayStartMenu();
                         break;
                 }
             }
@@ -75,18 +78,18 @@ namespace SettlersOfCatanGame
         }
 
         // Create a new Settlers Game with board, players
-        void createNewGame()
+        void CreateNewGame()
         {
             Console.Clear();
             Console.WriteLine("\t\t\t\t==================================================");
             Console.WriteLine("\t\t\t\t\t\tCreate New Game");
-            setUpPlayers();
-            setUpBoard();
+            SetUpPlayers();
+            SetUpBoard();
+            StartGame();
             Console.Read();
-            //startGame();
         }
 
-        void startGame()
+        void StartGame()
         {
             Console.Clear();
             Console.WriteLine("\t\t\t\tSettlers of Catan is a game about resource management.");
@@ -97,60 +100,40 @@ namespace SettlersOfCatanGame
 
             // each player rolls dice, whoever gets highest starts
 
-            for (int i = 0; i < Board.accessBoard().getPlayerCount(); i++)
+
+
+            // dice roll begins
+            for (int i = 0; i < numOfPlayers; i++)
             {
                 Console.Clear();
-                
+                Player player = Board.Access().GetPlayer(i);
+                player.numberLastRolled = player.rollDice();
             }
+            // highest roller starts first
+            Board.Access().GetPlayers().Sort();
+
+
         }
 
-        void displayTurn()
+        void SetUpBoard()
         {
-            Console.WriteLine("Turn {0}", turn);
+            Board.Access().setupTileArray();
         }
 
-        void beginPlayerTurn(int playerIndex)
-        {
-            Board.accessBoard().CurrentPlayer = playerIndex;
-
-            Player player = Board.accessBoard().getPlayer(playerIndex);
-
-
-
-        }
-
-        void beginPhaseOne()
-        {
-
-        }
-        void beginPhaseTwo()
-        {
-
-        }
-        void beginPhaseThree()
-        {
-
-        }
-
-        void setUpBoard()
-        {
-            Board.accessBoard().setupTileArray();
-        }
-
-        void setUpPlayers()
+        void SetUpPlayers()
         {
             //Add players to the board
             Console.WriteLine("\t\t\t\t---------------------------------------------------");
             Console.WriteLine("\t\t\t\tHow many players are playing?");
             Console.Write("\t\t\t\t(3-4):");
-            int playerCount = inputInteger();
+            int playerCount = InputInteger();
 
             //if it is out of range then display msg and redo this method
             if ((playerCount < 3) || (playerCount > 4))
             {
                 Console.WriteLine("\t\t\t\t----------------------------------------------------------------");
                 Console.WriteLine("\t\t\t\tThat is an invalid amount. Please try again.");
-                setUpPlayers();
+                SetUpPlayers();
             }
 
             //Ask for players names
@@ -163,14 +146,14 @@ namespace SettlersOfCatanGame
                 Player player = new Player(playerName);
 
                 //add player 
-                if (Board.accessBoard().addPlayer(player) == true)
-                    Console.WriteLine("{0} has been added to the game.", Board.accessBoard().getPlayer(i).Name);
+                if (Board.Access().addPlayer(player) == true)
+                    Console.WriteLine("{0} has been added to the game.", Board.Access().GetPlayer(i).Name);
                 else
                     i--;
             }
         }
 
-        public int inputInteger() // 0 is invalid input
+        public int InputInteger() // 0 is invalid input
         {
             try
             {
@@ -184,12 +167,12 @@ namespace SettlersOfCatanGame
             }
         }
         // specifies a file path and tries to load save game file
-        void loadGame()
+        void LoadGame()
         {
 
         }
         //exit the game
-        void quitGame()
+        void QuitGame()
         {
             Console.Clear();
             Console.WriteLine("\t\t\t\t=========================================");
