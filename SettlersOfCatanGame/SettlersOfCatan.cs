@@ -14,8 +14,6 @@ namespace SettlersOfCatanGame
         string playerName;
         int turn;
 
-        int numOfPlayers = Board.Access().GetPlayerCount();
-
         public override void initialiseGame()
         {
             turn = 1;
@@ -103,21 +101,20 @@ namespace SettlersOfCatanGame
 
 
             // dice roll begins
-            for (int i = 0; i < numOfPlayers; i++)
+            for (int i = 0; i < Settings.Access().NumOfPlayers; i++)
             {
                 Console.Clear();
-                Player player = Board.Access().GetPlayer(i);
+                Player player = Settings.Access().GetPlayer(i);
                 player.numberLastRolled = player.rollDice();
             }
-            // highest roller starts first
-            Board.Access().GetPlayers().Sort();
+            // TODO: highest roller starts first
 
 
         }
 
         void SetUpBoard()
         {
-            Board.Access().setupTileArray();
+            Board.Access().SetUpTileArray();
         }
 
         void SetUpPlayers()
@@ -146,8 +143,8 @@ namespace SettlersOfCatanGame
                 Player player = new Player(playerName);
 
                 //add player 
-                if (Board.Access().addPlayer(player) == true)
-                    Console.WriteLine("{0} has been added to the game.", Board.Access().GetPlayer(i).Name);
+                if (Settings.Access().AddPlayer(player) == true)
+                    Console.WriteLine("{0} has been added to the game.", Settings.Access().GetPlayer(i).Name);
                 else
                     i--;
             }

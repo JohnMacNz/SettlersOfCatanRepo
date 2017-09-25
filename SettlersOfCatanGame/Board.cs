@@ -11,28 +11,17 @@ using System.Collections;
 
 namespace SettlersOfCatanGame
 {
+    // this class contains objects and logic associated with the game board
     sealed class Board
     {
-        static Board board;
+        const ushort width = 9; // how wide the board is
+        const ushort height = 5; // how tall the board is
+        int[,] tileExists = new int[width, height]; // 2D array representing tile or non tile
 
-        ArrayList players;
+        static Board board;
         ArrayList tiles;
 
-        // grid variables
-        ushort width; // how wide the board is
-        ushort height; // how tall the board is
-        int[,] tileExists; // 2D array representing tile or non tile
-
         public int CurrentPlayer { get; set; }
-
-        // board constructor
-        public Board()
-        {
-            players = new ArrayList();
-            width = 9;
-            height = 5;
-            tileExists = new int[width, height];
-        }
 
         //method to access singleton
         public static Board Access()
@@ -42,30 +31,7 @@ namespace SettlersOfCatanGame
             return board;
         }
 
-        public ArrayList GetPlayers()
-        {
-            return players;
-        }
-
-        public int GetPlayerCount()
-        {
-            return players.Count;
-        }
-
-        public void getPlayerNames()
-        {
-            foreach(Player p in players)
-            {
-                Console.WriteLine(p.Name);
-            }
-        }
-
-        public void addTiles()
-        {
-
-        }
-
-        public void setupTileArray()
+        public void SetUpTileArray()
         {
             // binary matrix representing location of valid tile coordinates
             // populate array with 0 for no tile, 1 for tile
@@ -73,22 +39,22 @@ namespace SettlersOfCatanGame
             // once locations tiles have been set, replace with Tile objects over 1's
             // can refer back to these coordinates to get tile details
 
-            for(int x = 0; x < width; x++)
+            for (int x = 0; x < width; x++)
             {
                 for (int y = 0; y < height; y++)
                 {
-                    if(x % 2 == 0) //if x is even
+                    if (x % 2 == 0) //if x is even
                     {
-                        if(y % 2 == 0) // if y is even
+                        if (y % 2 == 0) // if y is even
                         {
                             // make all corners 0
-                            if(x == 0 && y == 0)
+                            if (x == 0 && y == 0)
                                 tileExists[x, y] = 0;
                             else if (x == 8 && y == 0)
                                 tileExists[x, y] = 0;
                             else if (x == 0 && y == 4)
                                 tileExists[x, y] = 0;
-                            else if(x == 8 && y == 4)
+                            else if (x == 8 && y == 4)
                                 tileExists[x, y] = 0;
                             else
                                 tileExists[x, y] = 1;
@@ -127,23 +93,5 @@ namespace SettlersOfCatanGame
             // each tile contains 6 possible settlements, 6 possible roads
         }
 
-        public bool addPlayer(Player player)
-        {
-            foreach (Player p in players)
-            {
-                if (p.Name == player.Name)
-                {
-                    Console.WriteLine($"Player with the name [{player.Name}] already exists.");
-                    return false;
-                }
-            }
-            players.Add(player);
-            return true;
-        }
-
-        public Player GetPlayer(int playerIndex)
-        {
-            return (Player)players[playerIndex];
-        }
     }
 }
