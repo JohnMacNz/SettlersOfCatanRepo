@@ -84,32 +84,33 @@ namespace SettlersOfCatanGame
             SetUpPlayers();
             SetUpBoard();
             StartGame();
-            Console.Read();
+            Console.ReadKey();
         }
+
 
         void StartGame()
         {
             Console.Clear();
-            Console.WriteLine("\t\t\t\tSettlers of Catan is a game about resource management.");
-            Console.WriteLine("\t\t\t\tThe goal is to be the first player to reach 10 victory points.");
-            Console.WriteLine("\t\t\t\tGood luck!\n\n\n");
-            Console.WriteLine("\t\t\t\t\t\tPress any key to continue...");
-            Console.ReadKey();
-
             // each player rolls dice, whoever gets highest starts
+            ShowPlayerRolls();
+            // TODO Calc Rolls, highest starts.
 
 
 
+
+
+        }
+
+        void ShowPlayerRolls()
+        {
             // dice roll begins
-            for (int i = 0; i < Settings.Access().NumOfPlayers; i++)
+            for (int i = 0; i < Settings.Access().GetPlayerCount(); i++)
             {
-                Console.Clear();
+
                 Player player = Settings.Access().GetPlayer(i);
-                player.numberLastRolled = player.rollDice();
+                player.NumLastRolled = player.rollDice();
+                Console.WriteLine("{0} rolled: {1}", player.Name, player.NumLastRolled);
             }
-            // TODO: highest roller starts first
-
-
         }
 
         void SetUpBoard()
@@ -144,7 +145,10 @@ namespace SettlersOfCatanGame
 
                 //add player 
                 if (Settings.Access().AddPlayer(player) == true)
+                {
                     Console.WriteLine("{0} has been added to the game.", Settings.Access().GetPlayer(i).Name);
+                }
+                 
                 else
                     i--;
             }

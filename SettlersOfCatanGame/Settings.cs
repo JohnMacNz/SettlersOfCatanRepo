@@ -12,10 +12,15 @@ namespace SettlersOfCatanGame
     {
         // variables
         static Settings settings;
-        ArrayList players = new ArrayList();
+        ArrayList players;
+        int numOfPlayers;
 
-        //properties
-        public int NumOfPlayers { get; set; }
+        public Settings()
+        {
+            numOfPlayers = 0;
+            players = new ArrayList();
+        }
+        
 
         // methods
         internal static Settings Access()

@@ -13,7 +13,8 @@ namespace SettlersOfCatanGame
     {
         string playerName;
         int victoryPoints;
-        bool currentTurn = false;
+        bool currentTurn;
+        int playerRoll;
 
         ArrayList resources;
         ArrayList cards;
@@ -23,7 +24,18 @@ namespace SettlersOfCatanGame
         Dice dice2 = new Dice();
 
         public string Name { get; }
-        public int numberLastRolled { get; set; }
+
+        public int NumLastRolled
+        {
+            get
+            {
+                return playerRoll;
+            }
+            set
+            {
+                playerRoll = value;
+            }
+        }
 
         public Player(string name)
         {
