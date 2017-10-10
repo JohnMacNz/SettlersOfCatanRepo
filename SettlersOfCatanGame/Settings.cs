@@ -13,6 +13,7 @@ namespace SettlersOfCatanGame
         // variables
         static Settings settings;
         ArrayList players;
+
         int numOfPlayers;
 
         public Settings()

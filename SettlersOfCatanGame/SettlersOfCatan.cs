@@ -12,11 +12,9 @@ namespace SettlersOfCatanGame
     public class SettlersOfCatan : Game
     {
         string playerName;
-        int turn;
-
+        int playerCount;
         public override void initialiseGame()
         {
-            turn = 1;
             DisplayIntro();
             DisplayStartMenu();
         }
@@ -91,17 +89,15 @@ namespace SettlersOfCatanGame
         void StartGame()
         {
             Console.Clear();
-            // each player rolls dice, whoever gets highest starts
-            ShowPlayerRolls();
-            // TODO Calc Rolls, highest starts.
-
-
+            RollDiceForAllPlayers();
+            SortPlayerRolls();
+            
 
 
 
         }
 
-        void ShowPlayerRolls()
+        void RollDiceForAllPlayers()
         {
             // dice roll begins
             for (int i = 0; i < Settings.Access().GetPlayerCount(); i++)
@@ -110,7 +106,27 @@ namespace SettlersOfCatanGame
                 Player player = Settings.Access().GetPlayer(i);
                 player.NumLastRolled = player.rollDice();
                 Console.WriteLine("{0} rolled: {1}", player.Name, player.NumLastRolled);
+
             }
+        }
+
+        void SortPlayerRolls()
+        {
+            int[] playerRolls = new int[playerCount];
+            for (int i = 0; i < Settings.Access().GetPlayerCount(); i++)
+            {
+                Player player = Settings.Access().GetPlayer(i);
+                playerRolls[i] = player.NumLastRolled;
+            }
+            Array.Sort(playerRolls);
+
+            foreach (Player p in Settings.Access().GetPlayers())
+            {
+                if(playerRolls[playerRolls.Length - 1] == p.NumLastRolled)
+                    Console.WriteLine("\n{0} Starts!", p.Name);
+            }
+            Console.WriteLine("Press Any Key To Continue...");
+            Console.ReadKey();
         }
 
         void SetUpBoard()
@@ -124,7 +140,7 @@ namespace SettlersOfCatanGame
             Console.WriteLine("\t\t\t\t---------------------------------------------------");
             Console.WriteLine("\t\t\t\tHow many players are playing?");
             Console.Write("\t\t\t\t(3-4):");
-            int playerCount = InputInteger();
+           playerCount = InputInteger();
 
             //if it is out of range then display msg and redo this method
             if ((playerCount < 3) || (playerCount > 4))
