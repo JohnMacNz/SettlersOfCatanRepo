@@ -19,9 +19,9 @@ namespace SettlersOfCatanGame
         int[,] tileExists = new int[width, height]; // 2D array representing tile or non tile
 
         static Board board;
-        ArrayList tiles;
-
-        public int CurrentPlayer { get; set; }
+        TileCollection<Land> landArray = new TileCollection<Land>(19);
+        TileCollection<Water> waterArray = new TileCollection<Water>(18);
+        // use factories to populate the arrays
 
         //method to access singleton
         public static Board Access()
@@ -74,7 +74,7 @@ namespace SettlersOfCatanGame
         }
 
         //show array on console -- debugging purposes only
-        void showTileExistsArray()
+        void ShowTileExistsArray()
         {
             for (int y = 0; y < height; y++)
             {
@@ -85,12 +85,6 @@ namespace SettlersOfCatanGame
                         Console.WriteLine();
                 }
             }
-        }
-
-        void designateBuildZones()
-        {
-            // binary matrix representing location of possible building sites
-            // each tile contains 6 possible settlements, 6 possible roads
         }
 
     }

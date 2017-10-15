@@ -8,6 +8,9 @@ namespace SettlersOfCatanGame
 {
     public abstract class Tile
     {
+        string _name;
+        string _type;
+
         public Tile()
         {
 

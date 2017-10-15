@@ -13,6 +13,7 @@ namespace SettlersOfCatanGame
     {
         string playerName;
         int playerCount;
+
         public override void initialiseGame()
         {
             DisplayIntro();
@@ -26,51 +27,79 @@ namespace SettlersOfCatanGame
             Console.WriteLine("\t\t\t\t=======================================================\n\n\n\n");
             Console.WriteLine("\t\t\t\t\t\tPress any key to continue...");
             Console.ReadKey();
-            Console.Clear();
         }
+
+        void DisplayPlayerMenu()
+        {
+            Console.Clear();
+            // get the player
+            // display their roll this turn
+            // display their resource pool
+            Console.WriteLine("========================================");
+            Console.WriteLine("Choose an Option:\n");
+            Console.WriteLine("---------------------------------------");
+            Console.WriteLine("1. Build Road");
+            Console.WriteLine("2. Build Settlements");
+            Console.WriteLine("3. Trade");
+            Console.WriteLine("4. See Roads");
+            Console.WriteLine("5. See Settlements");
+            Console.WriteLine("6. End Turn");
+            Console.WriteLine("========================================");
+            Console.Write("(1-3): ");
+        }
+
         // After intro game prompts user to either start load or quit game
         void DisplayStartMenu()
         {
+            
             int response = 0;
-
-            Console.WriteLine("\t\t\t\t========================================");
-            Console.WriteLine("\t\t\t\tChoose an Option:\n");
-            Console.WriteLine("\t\t\t\t---------------------------------------");
-            Console.WriteLine("\t\t\t\t1. Start New Game");
-            Console.WriteLine("\t\t\t\t2. Load Game");
-            Console.WriteLine("\t\t\t\t3. Quit Game");
-            Console.WriteLine("\t\t\t\t========================================");
-            Console.Write("\t\t\t\t(1-3): ");
-
-            try
+            bool moveOn = false;
+            while (!moveOn)
             {
-                response = int.Parse(Console.ReadLine());
+                Console.Clear();
+                Console.WriteLine("\t\t\t\t========================================");
+                Console.WriteLine("\t\t\t\tChoose an Option:\n");
+                Console.WriteLine("\t\t\t\t---------------------------------------");
+                Console.WriteLine("\t\t\t\t1. Start New Game");
+                Console.WriteLine("\t\t\t\t2. Load Game");
+                Console.WriteLine("\t\t\t\t3. Quit Game");
+                Console.WriteLine("\t\t\t\t========================================");
+                Console.Write("\t\t\t\t(1-3): ");
 
-                switch (response)
+                try
                 {
-                    case 1:
-                        CreateNewGame();
-                        break;
-                    case 2:
-                        LoadGame();
-                        break;
-                    case 3:
-                        QuitGame();
-                        break;
-                    default:
-                        Console.WriteLine("Invalid Input. Input a number between 1 and 3.\n");
-                        DisplayStartMenu();
-                        break;
+                    response = int.Parse(Console.ReadLine());
+
+                    switch (response)
+                    {
+                        case 1:
+                            moveOn = true;
+                            CreateNewGame();
+                            break;
+                        case 2:
+                            moveOn = true;
+                            LoadGame();
+                            break;
+                        case 3:
+                            moveOn = true;
+                            QuitGame();
+                            break;
+                        default:
+                            Console.WriteLine("Invalid Input. Input a number between 1 and 3.\n");
+                            Console.ReadKey();
+                            break;
+                    }
+                }
+                catch (FormatException)
+                {
+                    Console.WriteLine("Must be a number between 1-3.");
+                }
+                catch (ApplicationException e)
+                {
+                    Console.WriteLine(e);
                 }
             }
-            catch(FormatException)
-            {
-                Console.WriteLine("Must be a number between 1-3.");
-            }
-            catch(ApplicationException e)
-            {
-                Console.WriteLine(e);
-            }
+            
         }
 
         // Create a new Settlers Game with board, players
@@ -91,7 +120,8 @@ namespace SettlersOfCatanGame
             Console.Clear();
             RollDiceForAllPlayers();
             SortPlayerRolls();
-            
+            // set up the board
+            // 
 
 
 
@@ -102,16 +132,15 @@ namespace SettlersOfCatanGame
             // dice roll begins
             for (int i = 0; i < Settings.Access().GetPlayerCount(); i++)
             {
-
                 Player player = Settings.Access().GetPlayer(i);
-                player.NumLastRolled = player.rollDice();
+                player.NumLastRolled = player.RollDice();
                 Console.WriteLine("{0} rolled: {1}", player.Name, player.NumLastRolled);
-
             }
         }
 
         void SortPlayerRolls()
         {
+            // sort player rolls into an array
             int[] playerRolls = new int[playerCount];
             for (int i = 0; i < Settings.Access().GetPlayerCount(); i++)
             {
@@ -120,6 +149,7 @@ namespace SettlersOfCatanGame
             }
             Array.Sort(playerRolls);
 
+            // last number is who starts
             foreach (Player p in Settings.Access().GetPlayers())
             {
                 if(playerRolls[playerRolls.Length - 1] == p.NumLastRolled)
@@ -131,42 +161,49 @@ namespace SettlersOfCatanGame
 
         void SetUpBoard()
         {
-            Board.Access().SetUpTileArray();
         }
 
         void SetUpPlayers()
         {
-            //Add players to the board
-            Console.WriteLine("\t\t\t\t---------------------------------------------------");
-            Console.WriteLine("\t\t\t\tHow many players are playing?");
-            Console.Write("\t\t\t\t(3-4):");
-           playerCount = InputInteger();
-
-            //if it is out of range then display msg and redo this method
-            if ((playerCount < 3) || (playerCount > 4))
+            try
             {
-                Console.WriteLine("\t\t\t\t----------------------------------------------------------------");
-                Console.WriteLine("\t\t\t\tThat is an invalid amount. Please try again.");
-                SetUpPlayers();
-            }
+                //Add players to the board
+                Console.WriteLine("\t\t\t\t---------------------------------------------------");
+                Console.WriteLine("\t\t\t\tHow many players are playing?");
+                Console.Write("\t\t\t\t(3-4):");
+                playerCount = InputInteger();
 
-            //Ask for players names
-            for (int i = 0; i < playerCount; i++)
-            {
-                Console.WriteLine("------------------------------------");
-                Console.WriteLine("Please enter the name for Player {0}:", i + 1);
-                Console.Write("==>");
-                playerName = Console.ReadLine();
-                Player player = new Player(playerName);
-
-                //add player 
-                if (Settings.Access().AddPlayer(player) == true)
+                //if it is out of range then display msg and redo this method
+                if ((playerCount < 3) || (playerCount > 4))
                 {
-                    Console.WriteLine("{0} has been added to the game.", Settings.Access().GetPlayer(i).Name);
+                    Console.WriteLine("\t\t\t\t----------------------------------------------------------------");
+                    Console.WriteLine("\t\t\t\tThat is an invalid amount. Please try again.");
+                    SetUpPlayers();
                 }
-                 
-                else
-                    i--;
+
+                //Ask for players names
+                for (int i = 0; i < playerCount; i++)
+                {
+                    Console.WriteLine("------------------------------------");
+                    Console.WriteLine("Please enter the name for Player {0}:", i + 1);
+                    Console.Write("==>");
+                    playerName = Console.ReadLine();
+                    Player player = new Player(playerName);
+
+                    //add player 
+                    if (Settings.Access().AddPlayer(player) == true)
+                    {
+                        Console.WriteLine("{0} has been added to the game.", Settings.Access().GetPlayer(i).Name);
+                    }
+
+                    else// redo 
+                        i--;
+                }
+
+            }
+            catch (FormatException)
+            {
+                Console.WriteLine();
             }
         }
 

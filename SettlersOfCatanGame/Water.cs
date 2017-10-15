@@ -8,12 +8,12 @@ Date Modified: 16/09/2017
 
 namespace SettlersOfCatanGame
 {
-    class Ocean : Tile
+    class Water : Tile
     {
         string _name;
-        string _type;
+        string _type; // harbor or sea
 
-        public Ocean(string name, string type)
+        public Water(string name, string type)
         {
             _name = name;
             _type = type;

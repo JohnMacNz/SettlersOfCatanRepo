@@ -3,7 +3,7 @@ Settlers of Catan Game
 Author: John R. McLaren
 Student ID: 21500529
 Date Created: 16/09/2017
-Date Modified: 16/09/2017
+Date Modified: 15/10/2017
 **/
 using System.Collections;
 
@@ -11,17 +11,22 @@ namespace SettlersOfCatanGame
 {
     class Player
     {
-        string playerName;
-        int victoryPoints;
-        bool currentTurn;
-        int playerRoll;
+        private string playerName;
+        private int victoryPoints;
+        private int playerRoll;
+        private bool turnToPlay;
 
-        ArrayList resources;
         ArrayList cards;
         ArrayList buildings;
 
         Dice dice1 = new Dice();
         Dice dice2 = new Dice();
+
+        public int Food { get; set; }
+        public int Wool { get; set; }
+        public int Wood { get; set; }
+        public int Bricks { get; set; }
+        public int Ore { get; set; }
 
         public string Name { get; }
 
@@ -42,9 +47,9 @@ namespace SettlersOfCatanGame
             Name = name;
         }
 
-        public int rollDice()
+        public int RollDice()
         {
-            return dice1.roll() + dice2.roll();
+            return dice1.Roll() + dice2.Roll();
         }
 
         public ArrayList Cards

@@ -9,9 +9,10 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>SettlersOfCatanGame</RootNamespace>
     <AssemblyName>SettlersOfCatanGame</AssemblyName>
-    <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
+    <TargetFrameworkProfile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
@@ -48,8 +49,10 @@
     <Compile Include="Card.cs" />
     <Compile Include="Dice.cs" />
     <Compile Include="Game.cs" />
+    <Compile Include="TileCollection.cs" />
     <Compile Include="IGame.cs" />
-    <Compile Include="Ocean.cs" />
+    <Compile Include="LandFactory.cs" />
+    <Compile Include="Water.cs" />
     <Compile Include="Player.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -58,6 +61,8 @@
     <Compile Include="SettlersOfCatan.cs" />
     <Compile Include="Land.cs" />
     <Compile Include="Tile.cs" />
+    <Compile Include="TileFactory.cs" />
+    <Compile Include="WaterFactory.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />

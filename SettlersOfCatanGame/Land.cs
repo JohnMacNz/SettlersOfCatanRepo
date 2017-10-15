@@ -3,7 +3,7 @@ Settlers of Catan Game
 Author: John R. McLaren
 Student ID: 21500529
 Date Created: 16/09/2017
-Date Modified: 16/09/2017
+Date Modified: 15/10/2017
 **/
 
 namespace SettlersOfCatanGame
@@ -13,18 +13,29 @@ namespace SettlersOfCatanGame
         string _name;
         string _type;
         string _resource;
-        int _roads;
-        int _settlements;
+        int _value; // what does a player need to roll to get this resource
+        int _number; // each tile has a sequential number assigned to it (1,2,3...) so we can reference it
+        int _numOfRoads; // how many roads exist on this tile
+        bool _settlementExists; // does a settlement exist
 
-        public Land(string name, string type, string resource)
+        public Land(string name, string type, string resource, int value, int number)
         {
             _name = name;
             _type = type;
             _resource = resource;
-            _roads = 0;
-            _settlements = 0;
+            _value = value;
+            _number = number;
+            _numOfRoads = 0;
+            _settlementExists = false;
         }
 
+        public int Number
+        {
+            get
+            {
+                return _number;
+            }
+        }
         public override string Name
         {
             get
@@ -41,14 +52,14 @@ namespace SettlersOfCatanGame
             }
         }
 
-        public void addRoad()
+        public void AddRoad()
         {
-            _roads++;
+            _numOfRoads++;
         }
 
-        public void addSettlement()
+        public void AddSettlement()
         {
-            _settlements++;
+            _settlementExists = true;
         }
     }
 }
