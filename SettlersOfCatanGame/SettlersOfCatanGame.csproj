@@ -49,6 +49,8 @@
     <Compile Include="Card.cs" />
     <Compile Include="Dice.cs" />
     <Compile Include="Game.cs" />
+    <Compile Include="Menus.cs" />
+    <Compile Include="Resources.cs" />
     <Compile Include="TileCollection.cs" />
     <Compile Include="IGame.cs" />
     <Compile Include="LandFactory.cs" />
@@ -61,7 +63,6 @@
     <Compile Include="SettlersOfCatan.cs" />
     <Compile Include="Land.cs" />
     <Compile Include="Tile.cs" />
-    <Compile Include="TileFactory.cs" />
     <Compile Include="WaterFactory.cs" />
   </ItemGroup>
   <ItemGroup>

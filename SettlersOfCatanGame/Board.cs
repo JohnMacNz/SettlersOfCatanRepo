@@ -19,8 +19,8 @@ namespace SettlersOfCatanGame
         int[,] tileExists = new int[width, height]; // 2D array representing tile or non tile
 
         static Board board;
-        TileCollection<Land> landArray = new TileCollection<Land>(19);
-        TileCollection<Water> waterArray = new TileCollection<Water>(18);
+        TileCollection<Land> landArray = new TileCollection<Land>(19); // generics
+        TileCollection<Water> waterArray = new TileCollection<Water>(18); // generics
         // use factories to populate the arrays
 
         //method to access singleton
@@ -38,6 +38,8 @@ namespace SettlersOfCatanGame
 
             // once locations tiles have been set, replace with Tile objects over 1's
             // can refer back to these coordinates to get tile details
+
+            // used for graphical representation of tiles
 
             for (int x = 0; x < width; x++)
             {

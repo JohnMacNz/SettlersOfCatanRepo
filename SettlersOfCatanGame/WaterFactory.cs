@@ -6,11 +6,11 @@ using System.Threading.Tasks;
 
 namespace SettlersOfCatanGame
 {
-    class WaterFactory : TileFactory
+    class WaterFactory
     {
-        public override Tile Create(string name, string type)
+        public Tile Create(string name, string type)
         {
-            return new Water(name, type);
+            return new Water(name, type); // ocean // harbor
         }
     }
 }

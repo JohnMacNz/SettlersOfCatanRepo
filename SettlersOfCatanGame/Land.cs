@@ -61,5 +61,7 @@ namespace SettlersOfCatanGame
         {
             _settlementExists = true;
         }
+
+
     }
 }

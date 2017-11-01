@@ -11,42 +11,16 @@ namespace SettlersOfCatanGame
 {
     public class SettlersOfCatan : Game
     {
+        Menus menu = new Menus();
         string playerName;
         int playerCount;
 
         public override void initialiseGame()
         {
-            DisplayIntro();
+            menu.DisplayIntro();
             DisplayStartMenu();
         }
-        // some flavor for when the user first starts application
-        void DisplayIntro()
-        {
-            Console.WriteLine("\t\t\t\t===================Settlers of Catan===================\n");
-            Console.WriteLine("\t\t\t\t\t\tCreated by John R. McLaren\n");
-            Console.WriteLine("\t\t\t\t=======================================================\n\n\n\n");
-            Console.WriteLine("\t\t\t\t\t\tPress any key to continue...");
-            Console.ReadKey();
-        }
 
-        void DisplayPlayerMenu()
-        {
-            Console.Clear();
-            // get the player
-            // display their roll this turn
-            // display their resource pool
-            Console.WriteLine("========================================");
-            Console.WriteLine("Choose an Option:\n");
-            Console.WriteLine("---------------------------------------");
-            Console.WriteLine("1. Build Road");
-            Console.WriteLine("2. Build Settlements");
-            Console.WriteLine("3. Trade");
-            Console.WriteLine("4. See Roads");
-            Console.WriteLine("5. See Settlements");
-            Console.WriteLine("6. End Turn");
-            Console.WriteLine("========================================");
-            Console.Write("(1-3): ");
-        }
 
         // After intro game prompts user to either start load or quit game
         void DisplayStartMenu()
@@ -82,7 +56,7 @@ namespace SettlersOfCatanGame
                             break;
                         case 3:
                             moveOn = true;
-                            QuitGame();
+                            menu.QuitGame();
                             break;
                         default:
                             Console.WriteLine("Invalid Input. Input a number between 1 and 3.\n");
@@ -109,7 +83,6 @@ namespace SettlersOfCatanGame
             Console.WriteLine("\t\t\t\t==================================================");
             Console.WriteLine("\t\t\t\t\t\tCreate New Game");
             SetUpPlayers();
-            SetUpBoard();
             StartGame();
             Console.ReadKey();
         }
@@ -120,6 +93,8 @@ namespace SettlersOfCatanGame
             Console.Clear();
             RollDiceForAllPlayers();
             SortPlayerRolls();
+            menu.DisplayPlayerMenu();
+
             // set up the board
             // 
 
@@ -157,10 +132,6 @@ namespace SettlersOfCatanGame
             }
             Console.WriteLine("Press Any Key To Continue...");
             Console.ReadKey();
-        }
-
-        void SetUpBoard()
-        {
         }
 
         void SetUpPlayers()
@@ -225,15 +196,6 @@ namespace SettlersOfCatanGame
         {
 
         }
-        //exit the game
-        void QuitGame()
-        {
-            Console.Clear();
-            Console.WriteLine("\t\t\t\t=========================================");
-            Console.WriteLine("\t\t\t\t\t   Thanks for Playing!");
-            Console.WriteLine("\t\t\t\t=========================================");
-            Console.ReadLine();
-            Environment.Exit(0);
-        }
+
     }
 }
