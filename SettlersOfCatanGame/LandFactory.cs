@@ -8,14 +8,9 @@ namespace SettlersOfCatanGame
 {
     class LandFactory
     {
-        public Tile Create(string name, string type, string resource, int value, int number)
+        public Land Create(string name, string resource, int value, int number)
         {
-            return new Land(name, type, resource, value, number);
-        }
-
-        public override Tile Create(string name, string type)
-        {
-            throw new NotImplementedException();
+            return new Land(name, resource, value, number);
         }
 
 

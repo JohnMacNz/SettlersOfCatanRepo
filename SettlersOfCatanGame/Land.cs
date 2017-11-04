@@ -18,10 +18,9 @@ namespace SettlersOfCatanGame
         int _numOfRoads; // how many roads exist on this tile
         bool _settlementExists; // does a settlement exist
 
-        public Land(string name, string type, string resource, int value, int number)
+        public Land(string name, string resource, int value, int number)
         {
             _name = name;
-            _type = type;
             _resource = resource;
             _value = value;
             _number = number;
@@ -44,13 +43,6 @@ namespace SettlersOfCatanGame
             }
         }
 
-        public override string Type
-        {
-            get
-            {
-                return _type;
-            }
-        }
 
         public void AddRoad()
         {

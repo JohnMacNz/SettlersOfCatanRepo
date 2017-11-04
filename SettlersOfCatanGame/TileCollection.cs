@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -6,25 +7,26 @@ using System.Threading.Tasks;
 
 namespace SettlersOfCatanGame
 {
-    // holds a collection of land and water tiles
-    class TileCollection<T>
+    class TileCollection
     {
-        private T[] tiles;
+        private ArrayList _tiles = new ArrayList();
 
-        public TileCollection(int size)
+        public Iterator CreateIterator()
         {
-            tiles = new T[size];
+            return new Iterator(this);
         }
 
-        public T GetTile(int index)
+        // Gets item count
+        public int Count
         {
-            return tiles[index]; // return selected item
+            get { return _tiles.Count; }
         }
 
-        // set the specified tile to the index
-        public void SetTile(int index, T tile)
+        // Indexer
+        public object this[int index]
         {
-            tiles[index] = tile;
+            get { return _tiles[index]; }
+            set { _tiles.Add(value); }
         }
     }
 }

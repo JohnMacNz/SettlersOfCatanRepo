@@ -47,11 +47,14 @@
     <Compile Include="Board.cs" />
     <Compile Include="Building.cs" />
     <Compile Include="Card.cs" />
+    <Compile Include="TileCollection.cs" />
     <Compile Include="Dice.cs" />
     <Compile Include="Game.cs" />
+    <Compile Include="IAbstractIterator.cs" />
+    <Compile Include="IAbstractTileCollection.cs" />
+    <Compile Include="Iterator.cs" />
     <Compile Include="Menus.cs" />
     <Compile Include="Resources.cs" />
-    <Compile Include="TileCollection.cs" />
     <Compile Include="IGame.cs" />
     <Compile Include="LandFactory.cs" />
     <Compile Include="Water.cs" />

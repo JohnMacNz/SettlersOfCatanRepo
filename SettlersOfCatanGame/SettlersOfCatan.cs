@@ -96,7 +96,7 @@ namespace SettlersOfCatanGame
             menu.DisplayPlayerMenu();
 
             // set up the board
-            // 
+            Board.Access().PopulateBoard();
 
 
 
